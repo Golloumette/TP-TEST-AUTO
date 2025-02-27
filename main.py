@@ -12,7 +12,6 @@ from selenium.webdriver.support import expected_conditions as EC
 
 options = webdriver.ChromeOptions()
 
-options.add_argument("--headless")
 options.add_argument("--no-sandbox")
 options.add_argument("--disable-dev-shm-usage")
 unique_profile_dir = os.path.join(tempfile.gettempdir(), f"chrome_{uuid.uuid4()}")
