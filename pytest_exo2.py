@@ -1,4 +1,5 @@
 import pytest
+import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -7,24 +8,30 @@ from selenium.webdriver.support import expected_conditions as EC
 @pytest.fixture
 def driver():
     options = webdriver.ChromeOptions()
-    options.add_argument('headless')
+    options.add_argument('--headless')
+    options.add_argument('--window-size=1920,1080')  # Définit une taille de fenêtre pour le mode headless
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
     driver = webdriver.Chrome(options=options)
     yield driver
     driver.quit()
 
-def wait_for_element(driver, by, value, timeout=10):
-    return WebDriverWait(driver, timeout).until(EC.presence_of_element_located((by, value)))
+def wait_for_element(driver, by, value, timeout=20):
+    return WebDriverWait(driver, timeout).until(EC.visibility_of_element_located((by, value)))
 
 def test_betclic(driver):
     driver.get("https://www.betclic.fr/football-sfootball/top-football-europeen-p0")
-    driver.maximize_window()
+    # driver.maximize_window() inutile en mode headless, on utilise --window-size
 
     # Attendre que le bouton de cookie soit cliquable et cliquer dessus
     try:
         cookie_button = wait_for_element(driver, By.ID, "popin_tc_privacy_button_2")
         cookie_button.click()
-    except:
-        pass  # Si le bouton n'est pas trouvé, continuer
+    except Exception as e:
+        print("Cookie button not found:", e)
+
+    # Optionnel : prendre un screenshot pour le debug si l'attente échoue
+    driver.save_screenshot("debug_betclic.png")
 
     matches = wait_for_element(driver, By.CLASS_NAME, "cardEvent_content")
     assert matches, "No matches found"
@@ -44,12 +51,9 @@ def test_betclic(driver):
 
         for odds_block in market_odds_blocks:
             buttons = odds_block.find_elements(By.CSS_SELECTOR, "button.btn.is-odd.is-large.has-trends")
-
             for btn in buttons:
                 labels = btn.find_elements(By.CSS_SELECTOR, "span.btn_label")
-
                 bet_name = labels[0].text.strip() if len(labels) > 0 and labels[0].text.strip() else "Nom non renseigné"
                 bet_value = labels[1].text.strip() if len(labels) > 1 else "Valeur introuvable"
-
                 assert bet_name != "Nom non renseigné", "Bet name is missing"
                 assert bet_value != "Valeur introuvable", "Bet value is missing"
