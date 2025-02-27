@@ -25,13 +25,11 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Execution de pytest
-        run: coverage run -m pytest; coverage xml
+        run: coverage run -m pytest;
       
-      - name: Get Coverage
-        uses: orgoro/coverage@v3.2
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          coverageFile: coverage.xml
+      - name: Run Exo1
+        run: python main.py 
+
       - name: Discord notification
         env:
             DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}

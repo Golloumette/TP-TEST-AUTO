@@ -19,4 +19,4 @@ runs:
       - name: Install dependencies
         shell : bash
         run: |
-          pip install fastapi locust pytest uvicorn coverage httpx pytest-mock pytest-profiling pylint sqlalchemy pydantic -r requirements.txt
+          pip install pytest pytest-profiling selenium webdriver-manager
