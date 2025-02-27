@@ -1,3 +1,7 @@
+import os
+import tempfile
+import uuid
+
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import time
@@ -6,6 +10,9 @@ from selenium.webdriver.common.action_chains import ActionChains
 
 options = webdriver.ChromeOptions()
 driver = webdriver.Chrome(options=options)
+options.add_argument("--headless")
+options.add_argument("--no-sandbox")
+options.add_argument("--disable-dev-shm-usage")
 
 driver.get("https://animationdigitalnetwork.com/")
 
@@ -63,6 +70,5 @@ time.sleep(5)
 submit5 = driver.find_element(By.XPATH, "//*[@data-testid='registration-form-submit-button']")
 submit5.click()
 
-
-time.sleep(500)
+time.sleep(15)
 driver.quit()
