@@ -22,6 +22,7 @@ driver.get("https://animationdigitalnetwork.com/")
 driver.maximize_window()
 
 time.sleep(1)
+driver.save_screenshot("screenshot_before_click.png")
 submit1 = driver.find_element(By.XPATH, "//*[contains(text(),'Continuer sans accepter')]")
 submit1.click()
 
