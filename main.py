@@ -9,11 +9,14 @@ import random
 from selenium.webdriver.common.action_chains import ActionChains
 
 options = webdriver.ChromeOptions()
-driver = webdriver.Chrome(options=options)
+
 options.add_argument("--headless")
 options.add_argument("--no-sandbox")
 options.add_argument("--disable-dev-shm-usage")
+unique_profile_dir = os.path.join(tempfile.gettempdir(), f"chrome_{uuid.uuid4()}")
+options.add_argument(f"--user-data-dir={unique_profile_dir}")
 
+driver = webdriver.Chrome(options=options)
 driver.get("https://animationdigitalnetwork.com/")
 
 driver.maximize_window()
