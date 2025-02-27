@@ -2,14 +2,13 @@ name: Setup
 
 inputs:
   python-version: 
-    description: Python version'
+    description: Python version ET installation des dépendances'
     required: true
-    default: '3.10.12'
+    default: '3.10'
 
 runs:
   using: composite
-  steps:
-      - uses: actions/checkout@v4      
+  steps:     
       - name: Set up Python 
         uses: actions/setup-python@v5
         with:

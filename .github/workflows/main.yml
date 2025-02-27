@@ -11,18 +11,16 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["pypy3.10", "3.9", "3.10", "3.11", "3.12", "3.13"]
+        python-version: ["3.9", "3.10", "3.11"]
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v4
+      - uses: actions/checkout@v4
+
+      - name: Setup Composite Action
+        uses: ./.github/actions/setup
         with:
          python-version: ${{ matrix.python-version }}
-      - name: Setup
-        uses: ./.github/actions/setup
+     
       
       - name: Run Exo1
         run: python main.py 
