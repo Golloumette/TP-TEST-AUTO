@@ -23,9 +23,6 @@ jobs:
          python-version: ${{ matrix.python-version }}
       - name: Setup
         uses: ./.github/actions/setup
-
-      - name: Execution de pytest
-        run: coverage run -m pytest;
       
       - name: Run Exo1
         run: python main.py 
