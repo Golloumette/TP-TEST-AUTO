@@ -25,6 +25,12 @@ jobs:
       - name: Run Exo1
         run: python main.py 
 
+      - name: Upload screenshot artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: screenshots
+          path: screenshot_before_click.png
+
       - name: Discord notification
         env:
             DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
