@@ -25,13 +25,13 @@ driver.maximize_window()
 
 wait = WebDriverWait(driver, 10)  # attend jusqu'à 10s
 driver.save_screenshot("screenshot_before_click.png")
-#try:
-#    submit1 = wait.until(
-        # EC.element_to_be_clickable((By.XPATH, "//*[contains(text(),'Continuer sans accepter')]"))
-    # )
-#     submit1.click()
-# except:
-#     print("Le bouton 'Continuer sans accepter' n'est pas apparu.")
+try:
+   submit1 = wait.until(
+        EC.element_to_be_clickable((By.XPATH, "//*[contains(text(),'Continuer sans accepter')]"))
+    )
+   submit1.click()
+except:
+    print("Le bouton 'Continuer sans accepter' n'est pas apparu.")
 
 
 submit2 = driver.find_element(By.XPATH, "//*[@data-testid='menu-login-link']")

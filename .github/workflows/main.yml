@@ -22,8 +22,10 @@ jobs:
          python-version: ${{ matrix.python-version }}
      
       
-      - name: Run Exo1
-        run: python main.py 
+
+
+      - name: Run Ex02
+        run: python exo2.py
 
       - name: Upload screenshot artifact
         uses: actions/upload-artifact@v4
