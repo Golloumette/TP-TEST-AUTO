@@ -7,6 +7,8 @@ from selenium.webdriver.common.by import By
 import time
 import random
 from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 options = webdriver.ChromeOptions()
 
@@ -21,10 +23,16 @@ driver.get("https://animationdigitalnetwork.com/")
 
 driver.maximize_window()
 
-time.sleep(1)
+wait = WebDriverWait(driver, 10)  # attend jusqu'à 10s
 driver.save_screenshot("screenshot_before_click.png")
-submit1 = driver.find_element(By.XPATH, "//*[contains(text(),'Continuer sans accepter')]")
-submit1.click()
+try:
+    submit1 = wait.until(
+        EC.element_to_be_clickable((By.XPATH, "//*[contains(text(),'Continuer sans accepter')]"))
+    )
+    submit1.click()
+except:
+    print("Le bouton 'Continuer sans accepter' n'est pas apparu.")
+
 
 submit2 = driver.find_element(By.XPATH, "//*[@data-testid='menu-login-link']")
 submit2.click()
