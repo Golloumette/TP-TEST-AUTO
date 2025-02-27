@@ -15,12 +15,12 @@ def driver():
 def test_betclic(driver):
     driver.get("https://www.betclic.fr/football-sfootball/top-football-europeen-p0")
     driver.maximize_window()
-    time.sleep(1)
+    time.sleep(5)
 
     cookie_buttons = driver.find_elements(By.ID, "popin_tc_privacy_button_2")
     if cookie_buttons:
         cookie_buttons[0].click()
-    time.sleep(1)
+    time.sleep(5)
 
     matches = driver.find_elements(By.CLASS_NAME, "cardEvent_content")
     assert len(matches) > 0, "No matches found"
