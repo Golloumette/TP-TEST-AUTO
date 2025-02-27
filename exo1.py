@@ -1,3 +1,5 @@
+import tempfile
+import uuid
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import time
@@ -5,6 +7,13 @@ import random
 from selenium.webdriver.common.action_chains import ActionChains
 
 options = webdriver.ChromeOptions()
+options.add_argument("--headless")
+options.add_argument("--no-sandbox")
+options.add_argument("--disable-dev-shm-usage")
+
+# Génère un répertoire unique pour le profil utilisateur
+unique_profile_dir = tempfile.mkdtemp(prefix=f"chrome_{uuid.uuid4()}_")
+options.add_argument(f"--user-data-dir={unique_profile_dir}")
 
 driver = webdriver.Chrome(options=options)
 

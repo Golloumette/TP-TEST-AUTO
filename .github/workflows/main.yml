@@ -24,6 +24,9 @@ jobs:
       - name: Run Ex02
         run: python exo2.py
 
+      - name: Pytest Exo2
+        run: pytest pytest_exo2.py
+
       - name: Run exo1
         run: python exo1.py
 
